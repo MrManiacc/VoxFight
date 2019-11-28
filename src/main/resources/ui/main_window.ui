@@ -1,0 +1,193 @@
+{
+  "block#main_menu": {
+    "pad": "0",
+    "c": "TRANSPARENT",
+    "const#const": {
+      "x": "stick(LEFT)",
+      "y": "stick(TOP)",
+      "w": "rel(1)",
+      "h": "rel(1)"
+    },
+    "bar#window_bar": {
+      "color": "#0d0d0d",
+      "fam": "drag_bars",
+      "const#top_bar_const": {
+        "h": "pixel(35)"
+      },
+      "label#window_title": {
+        "fs": "25",
+        "color": "WHITE",
+        "tc": "BLACK",
+        "text": "testing",
+        "pad": "5",
+        "const#file_label_const": {
+          "x": "stick(LEFT)",
+          "y": "stick(TOP)"
+        }
+      },
+      "label#window_close": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "textColor": "WHITE",
+        "text": "X",
+        "color": "DARK_RED",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#close_label_const": {
+          "x": "stick(RIGHT)",
+          "y": "stick(TOP)"
+        }
+      }
+    },
+    "block#main_view": {
+      "background": "crosshair.png",
+      "opacity": "0.5",
+      "const#main_view_const": {
+        "x": "center",
+        "y": "center",
+        "w": "pixel(30)",
+        "h": "pixel(30)"
+      }
+    },
+    "block#chunk_info": {
+      "pad": "0",
+      "color": "TRANSPARENT",
+      "const#const": {
+        "x": "stick(LEFT)",
+        "y": "stick(BOTTOM)#top_bar_const",
+        "w": "rel(0.25)",
+        "h": "pixel(200)"
+      },
+      "label#chunk_origin_label": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "textColor": "#030303",
+        "color": "#f7f7f7",
+        "text": "Chunk Origin: ",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#chunk_origin_label_const": {
+          "x": "stick(LEFT)",
+          "y": "stick(TOP)"
+        }
+      },
+      "label#chunk_origin": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "color": "#030303",
+        "textColor": "#f7f7f7",
+        "text": "0-0",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#chunk_origin_const": {
+          "x": "stick(RIGHT, pixel(5))#chunk_origin_label_const",
+          "y": "stick(TOP)"
+        }
+      },
+      "label#chunk_status_label": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "textColor": "#030303",
+        "color": "#f7f7f7",
+        "text": "Chunk status: ",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#chunk_status_label_const": {
+          "x": "stick(LEFT)",
+          "y": "stick(BOTTOM)#chunk_origin"
+        }
+      },
+      "label#chunk_status": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "color": "#030303",
+        "textColor": "#f7f7f7",
+        "text": "unloaded",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#chunk_status_const": {
+          "x": "stick(RIGHT, pixel(5))#chunk_status_label_const",
+          "y": "stick(BOTTOM)#chunk_origin"
+        }
+      },
+      "label#chunk_culled_label": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "textColor": "#030303",
+        "color": "#f7f7f7",
+        "text": "Culled chunks: ",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#chunk_culled_label_const": {
+          "x": "stick(LEFT)",
+          "y": "stick(BOTTOM)#chunk_status_const"
+        }
+      },
+      "label#chunk_culled": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "color": "#030303",
+        "textColor": "#f7f7f7",
+        "text": "0-0",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#chunk_culled_const": {
+          "x": "stick(RIGHT, pixel(5))#chunk_culled_label_const",
+          "y": "stick(BOTTOM)#chunk_status_const"
+        }
+      },
+      "label#player_pos_label": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "textColor": "#030303",
+        "color": "#f7f7f7",
+        "text": "Position: ",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#player_pos_label_const": {
+          "x": "stick(LEFT)",
+          "y": "stick(BOTTOM)#chunk_culled_const"
+        }
+      },
+      "label#player_pos": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "color": "#030303",
+        "textColor": "#f7f7f7",
+        "text": "0-0",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#player_pos_const": {
+          "x": "stick(RIGHT, pixel(5))#player_pos_label_const",
+          "y": "stick(BOTTOM)#chunk_culled_const"
+        }
+      },
+      "label#active_block_label": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "textColor": "#030303",
+        "color": "#f7f7f7",
+        "text": "Selected block: ",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#active_block_label_const": {
+          "x": "stick(LEFT)",
+          "y": "stick(BOTTOM)#player_pos_const"
+        }
+      },
+      "label#active_block": {
+        "textFamily": "regular",
+        "fontSize": "25",
+        "color": "#030303",
+        "textColor": "#f7f7f7",
+        "text": "0-0",
+        "pad": "10, 10, 5, 5",
+        "rad": "0",
+        "const#active_block_const": {
+          "x": "stick(RIGHT, pixel(5))#active_block_label_const",
+          "y": "stick(BOTTOM)#player_pos_const"
+        }
+      }
+    }
+  }
+}
