@@ -23,7 +23,7 @@ public class Blocks {
         registerBlock(new BlockBedrock((byte) 11));
     }
 
-    private static void registerBlock(Block block) {
+    public static void registerBlock(Block block) {
         blockMap.put(block.getId(), block);
     }
 

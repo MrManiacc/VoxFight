@@ -1,48 +1,48 @@
 package me.jraynor.core.block.blocks;
 
+import lombok.Getter;
 import me.jraynor.core.block.props.BlockModel;
 import me.jraynor.core.block.props.BlockUV;
+import org.joml.Vector3f;
 
 /**
  * Meant o represent a block in a static manor.
  * Every block should have an ID and be able to be accessed statically
  */
 public abstract class Block {
+    @Getter
     private BlockUV blockUV;
+    @Getter
     private BlockModel blockModel;
+    @Getter
     protected boolean solid;
+    @Getter
     protected float hardness;
+    @Getter
     private byte id;
+    @Getter
+    protected Vector3f halfExtents;
+    @Getter
+    protected boolean specialRender;
 
-    Block(byte id) {
+    public Block(byte id) {
         this.id = id;
         this.blockUV = createUV();
         this.blockModel = createModel();
         this.hardness = 0.0f;
+        this.halfExtents = new Vector3f(0.5f, 0.5f, 0.5f);
         solid = true;
+        initialize();
     }
 
-    abstract BlockUV createUV();
-
-    abstract BlockModel createModel();
-
-    public BlockUV getBlockUV() {
-        return blockUV;
+    protected void initialize() {
     }
 
-    public BlockModel getBlockModel() {
-        return blockModel;
-    }
+    protected abstract BlockUV createUV();
 
-    public boolean isSolid() {
-        return solid;
-    }
+    protected abstract BlockModel createModel();
 
-    public float getHardness() {
-        return hardness;
-    }
 
-    public byte getId() {
-        return id;
-    }
+
+
 }

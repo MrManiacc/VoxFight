@@ -2,10 +2,10 @@ package me.jraynor.core.physics;
 
 import com.bulletphysics.linearmath.IDebugDraw;
 import me.jraynor.core.entity.PlayerEntity;
-import me.jraynor.gl.GLUtils;
-import me.jraynor.gl.Shader;
-import me.jraynor.gl.ShaderBind;
-import me.jraynor.gl.Vao;
+import me.jraynor.core.gl.GLUtils;
+import me.jraynor.core.gl.Shader;
+import me.jraynor.core.gl.ShaderBind;
+import me.jraynor.core.gl.Vao;
 
 import javax.vecmath.Vector3f;
 import java.util.ArrayList;

@@ -1,0 +1,4 @@
+package me.jraynor.core.registry.assets;
+
+public class ImageAsset {
+}

@@ -4,10 +4,9 @@ import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.collision.shapes.CylinderShape;
 import me.jraynor.bootstrap.Window;
 import me.jraynor.core.chunk.Chunk;
+import me.jraynor.core.gl.Camera;
 import me.jraynor.core.physics.Body;
-import me.jraynor.core.physics.BoxColliders;
 import me.jraynor.core.world.World;
-import me.jraynor.gl.Camera;
 import me.jraynor.uison.misc.Input;
 import org.joml.*;
 
@@ -17,7 +16,6 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class PlayerEntity extends BaseEntity {
     private Camera camera;
-    private double savedX = -1, savedY = -1;
     private Vector3f dir = new Vector3f();
     private Vector3f right = new Vector3f();
     private Vector3f up = new Vector3f();
@@ -26,8 +24,6 @@ public class PlayerEntity extends BaseEntity {
     private Vector2i chunkOrigin = new Vector2i();
     private Vector2i[] nextChunks = new Vector2i[]{new Vector2i(), new Vector2i(), new Vector2i(), new Vector2i(), new Vector2i(), new Vector2i(), new Vector2i(), new Vector2i()};
     private World world;
-    private BoxColliders colliders;
-    private int reach;
     private FrustumIntersection frustumIntersection;
     private Matrix4f prjViewMatrix;
     private boolean chunkUpdate = true;
@@ -40,7 +36,7 @@ public class PlayerEntity extends BaseEntity {
     private boolean blockSelected = false;
     private Vector3f linearAcc = new Vector3f();
     private Vector3f linearVel = new Vector3f();
-    private float linearDamping = 0.005f;
+    private float linearDamping = 0.05f;
 
     /**
      * ALWAYS rotation about the local XYZ axes of the camera!
@@ -53,7 +49,6 @@ public class PlayerEntity extends BaseEntity {
         super(position);
         this.camera = new Camera(window, 80, 0.1f, 10000f);
         this.camera.setPerspective();
-        this.reach = reach;
         this.frustumIntersection = new FrustumIntersection();
         this.prjViewMatrix = new Matrix4f().identity();
         this.physicsBody = new Body(100, new CylinderShape(new javax.vecmath.Vector3f(0.45f, 1, 0.45f)), new javax.vecmath.Vector3f(position.x, position.y, position.z), new javax.vecmath.Vector3f(0, 0, 0), new javax.vecmath.Vector3f(0, 0, 0));
@@ -103,7 +98,7 @@ public class PlayerEntity extends BaseEntity {
 
         if (Input.mousePressed(GLFW_MOUSE_BUTTON_RIGHT)) {
             if (blockSelected) {
-                world.setBlock(nextBlock.x, nextBlock.y, nextBlock.z, (byte) 4);
+                world.setBlock(nextBlock.x, nextBlock.y, nextBlock.z, (byte) 15);
                 blockSelected = false;
             }
         }
@@ -127,10 +122,10 @@ public class PlayerEntity extends BaseEntity {
     private void updateChunk() {
         int x = (int) position.x;
         int z = (int) position.z;
-        if (x < 0)
-            x -= 16;
+        if (0 > x)
+            x = x - 16;
         if (z < 0)
-            z -= 16;
+            z = z - 16;
         int xO = Math.round(x - (x % 16));
         int zO = Math.round(z - (z % 16));
         if (chunkOrigin.x != xO || chunkOrigin.y != zO)
@@ -173,13 +168,13 @@ public class PlayerEntity extends BaseEntity {
 
     private void updatePositionLinear(float delta) {
         linearAcc.zero();
-        float speed = 1.25f;
+        float speed = 3.5f;
         if (Input.keyDown(GLFW_KEY_LEFT_SHIFT))
-            speed = 1.5f;
+            speed = 5f;
         if (Input.keyDown(GLFW_KEY_W))
-            linearAcc.fma(speed, new Vector3f(dir.x, 0, dir.z));
+            linearAcc.fma(speed, dir);
         if (Input.keyDown(GLFW_KEY_S))
-            linearAcc.fma(-speed, new Vector3f(dir.x, 0, dir.z));
+            linearAcc.fma(-speed, dir);
         if (Input.keyDown(GLFW_KEY_D)) {
             linearAcc.fma(speed, right);
         }
@@ -188,7 +183,7 @@ public class PlayerEntity extends BaseEntity {
 
         if (Input.keyPressed(GLFW_KEY_SPACE) && distanceFromGround < 1.0f) {
             physicsBody.getBody().getLinearVelocity(tempVec);
-            physicsBody.getBody().setLinearVelocity(new javax.vecmath.Vector3f(tempVec.x, 4f, tempVec.z));
+            physicsBody.getBody().setLinearVelocity(new javax.vecmath.Vector3f(tempVec.x, 5, tempVec.z));
         }
     }
 
@@ -214,7 +209,6 @@ public class PlayerEntity extends BaseEntity {
 
     public void setWorld(World world) {
         this.world = world;
-        this.colliders = new BoxColliders(world, reach);
     }
 
     public Camera getCamera() {
@@ -231,10 +225,6 @@ public class PlayerEntity extends BaseEntity {
 
     public Body getPhysicsBody() {
         return physicsBody;
-    }
-
-    public float getDistanceFromGround() {
-        return distanceFromGround;
     }
 
     public void setDistanceFromGround(float distanceFromGround) {
@@ -293,10 +283,6 @@ public class PlayerEntity extends BaseEntity {
 
     public void setNeedsUpdate(boolean b) {
         this.chunkUpdate = b;
-    }
-
-    public boolean isBlockSelected() {
-        return blockSelected;
     }
 
     public void setBlockSelected(boolean blockSelected) {

@@ -37,13 +37,13 @@ public class World {
         playerEntity.setWorld(this);
     }
 
-    public void init() {
+    public void init(String pack) {
         GenericGenerator genericGenerator = new GenericGenerator();
         generateChunk(new Vector2i(0, 0), genericGenerator, 30);
         cullChunks();
         fixChunks(genericGenerator);
         missingNeighbors.clear();
-        worldRenderer.init();
+        worldRenderer.init(pack);
     }
 
     public void setPhysicsWorld(PhysicsWorld physicsWorld) {

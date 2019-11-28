@@ -1,0 +1,19 @@
+displayName: Flower
+id: 15
+solid: true
+#not yet implemented, everything is instant break
+hardness: 1.0
+faces:
+  - [15, 0]
+#not required they have a default value of a box (or should
+vertices:
+  - [0.4, 0.4, 0.4,
+     0.4, -0.5, 0.4,
+     -0.4, 0.4, -0.4,
+     -0.4, -0.5, -0.4]
+  #east
+
+  - [-0.4, 0.4, -0.4,
+     -0.4, -0.5, -0.4,
+     0.4, 0.4, 0.4,
+     0.4, -0.5, 0.4] #east

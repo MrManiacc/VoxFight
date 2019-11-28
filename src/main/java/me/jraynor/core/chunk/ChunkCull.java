@@ -1,5 +1,8 @@
 package me.jraynor.core.chunk;
 
+import me.jraynor.core.block.Blocks;
+import me.jraynor.core.block.blocks.Block;
+
 public class ChunkCull {
     private Chunk localChunk;
     private Chunk[] neighbors;
@@ -158,6 +161,10 @@ public class ChunkCull {
             faces[4] = true;
     }
 
+    private boolean shouldCullBlock(Chunk chunk, int x, int y, int z) {
+        return Blocks.getBlock(chunk.getBlock(x, y, z)).isSpecialRender() || chunk.getBlock(x, y, z) == 0;
+    }
+
     /**
      * This method will do face culling relative to blocks inside the chunk
      *
@@ -169,31 +176,31 @@ public class ChunkCull {
     private void cullInChunk(boolean[] faces, int x, int y, int z) {
         int airBlock = 0;
         if (x != 0)
-            if (localChunk.blocks[x - 1][y][z] == airBlock)
+            if (shouldCullBlock(localChunk, x - 1, y, z))
                 faces[3] = true;
         if (x != 15)
-            if (localChunk.blocks[x + 1][y][z] == airBlock)
+            if (shouldCullBlock(localChunk, x + 1, y, z))
                 faces[2] = true;
 
 
         if (y != 0) {
-            if (localChunk.blocks[x][y - 1][z] == airBlock)
+            if (shouldCullBlock(localChunk, x, y - 1, z))
                 faces[5] = true;
         } else
             faces[5] = true;
 
         if (y != 127) {
-            if (localChunk.blocks[x][y + 1][z] == airBlock)
+            if (shouldCullBlock(localChunk, x, y + 1, z))
                 faces[4] = true;
         } else
             faces[4] = true;
 
         if (z != 0)
-            if (localChunk.blocks[x][y][z - 1] == airBlock)
+            if (shouldCullBlock(localChunk, x, y, z - 1))
                 faces[0] = true;
 
         if (z != 15)
-            if (localChunk.blocks[x][y][z + 1] == airBlock)
+            if (shouldCullBlock(localChunk, x, y, z + 1))
                 faces[1] = true;
 
     }
@@ -217,8 +224,7 @@ public class ChunkCull {
                 faces[3] = true;
         } else {
             if (x == 0) {
-                int value = west.blocks[15][y][z];
-                if (value == 0)
+                if (shouldCullBlock(west, 15, y, z))
                     faces[3] = true;
             }
         }
@@ -228,8 +234,7 @@ public class ChunkCull {
                 faces[2] = true;
         } else {
             if (x == 15) {
-                int value = east.blocks[0][y][z];
-                if (value == 0)
+                if (shouldCullBlock(east, 0, y, z))
                     faces[2] = true;
             }
         }
@@ -239,8 +244,7 @@ public class ChunkCull {
                 faces[0] = true;
         } else {
             if (z == 0) {
-                int value = south.blocks[x][y][15];
-                if (value == 0)
+                if (shouldCullBlock(south, x, y, 15))
                     faces[0] = true;
             }
         }
@@ -250,8 +254,7 @@ public class ChunkCull {
                 faces[1] = true;
         } else {
             if (z == 15) {
-                int value = north.blocks[x][y][0];
-                if (value == 0)
+                if (shouldCullBlock(north, x, y, 0))
                     faces[1] = true;
             }
         }

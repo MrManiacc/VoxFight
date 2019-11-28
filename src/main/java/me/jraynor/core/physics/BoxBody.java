@@ -7,7 +7,7 @@ import org.joml.Vector3f;
 
 public class BoxBody extends Body {
     public BoxBody(Vector3f position, Vector3f size) {
-        super(0, new BoxShape(new javax.vecmath.Vector3f(size.x / 2.0f, size.y / 2.0f, size.z / 2.0f)), new javax.vecmath.Vector3f(position.x + size.x / 2.0f, position.y + size.y / 2.0f, position.z + size.z / 2.0f), new javax.vecmath.Vector3f(0, 0, 0));
+        super(0, new BoxShape(new javax.vecmath.Vector3f(size.x, size.y, size.z)), new javax.vecmath.Vector3f(position.x + size.x, position.y + size.y, position.z + size.z), new javax.vecmath.Vector3f(0, 0, 0));
         rigidBody.setCollisionFlags(CollisionFlags.STATIC_OBJECT);
     }
 

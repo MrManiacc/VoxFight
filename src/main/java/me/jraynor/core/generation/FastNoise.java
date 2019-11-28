@@ -47,13 +47,13 @@ public class FastNoise {
         return m_seed;
     }
 
-    // Sets seed used for all noise types
+    // Sets seed used for all noise assets
     // Default: 1337
     public void SetSeed(int seed) {
         m_seed = seed;
     }
 
-    // Sets frequency for all noise types
+    // Sets frequency for all noise assets
     // Default: 0.01
     public void SetFrequency(float frequency) {
         m_frequency = frequency;
@@ -76,27 +76,27 @@ public class FastNoise {
         m_noiseType = noiseType;
     }
 
-    // Sets octave count for all fractal noise types
+    // Sets octave count for all fractal noise assets
     // Default: 3
     public void SetFractalOctaves(int octaves) {
         m_octaves = octaves;
         CalculateFractalBounding();
     }
 
-    // Sets octave lacunarity for all fractal noise types
+    // Sets octave lacunarity for all fractal noise assets
     // Default: 2.0
     public void SetFractalLacunarity(float lacunarity) {
         m_lacunarity = lacunarity;
     }
 
-    // Sets octave gain for all fractal noise types
+    // Sets octave gain for all fractal noise assets
     // Default: 0.5
     public void SetFractalGain(float gain) {
         m_gain = gain;
         CalculateFractalBounding();
     }
 
-    // Sets method for combining octaves in all fractal noise types
+    // Sets method for combining octaves in all fractal noise assets
     // Default: FBM
     public void SetFractalType(FractalType fractalType) {
         m_fractalType = fractalType;

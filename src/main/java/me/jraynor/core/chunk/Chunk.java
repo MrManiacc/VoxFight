@@ -1,5 +1,6 @@
 package me.jraynor.core.chunk;
 
+import com.bulletphysics.collision.dispatch.CollisionFlags;
 import me.jraynor.core.block.Blocks;
 import me.jraynor.core.block.blocks.Block;
 import me.jraynor.core.block.props.BlockModel;
@@ -109,10 +110,12 @@ public class Chunk {
     public void propagateBodies() {
         for (int i = 0; i < physicsBlocks.size(); i++) {
             Vector3i pos = physicsBlocks.get(i);
-            Vector3f blockPosition = new Vector3f((origin.x) + pos.x - 0.5f, pos.y - 0.5f, (origin.y) + pos.z - 0.5f);
-            BoxBody body = new BoxBody(blockPosition, new Vector3f(1));
+            Block block = Blocks.getBlock(getBlock(pos.x, pos.y, pos.z));
+            Vector3f blockPosition = new Vector3f((origin.x) + pos.x - block.getHalfExtents().x, pos.y - block.getHalfExtents().y, (origin.y) + pos.z - block.getHalfExtents().z);
+            BoxBody body = new BoxBody(blockPosition, block.getHalfExtents());
             body.setActivationState(Body.DISABLE_SIMULATION);
             body.getBody().setUserPointer(new Vector4i(origin.x + pos.x, pos.y, origin.y + pos.z, -69));
+            body.getBody().setCollisionFlags(CollisionFlags.STATIC_OBJECT);
             bodies.put(pos, body);
 
         }
@@ -164,32 +167,44 @@ public class Chunk {
         if (block.isSolid()) {
             BlockModel blockModel = block.getBlockModel();
             BlockUV blockUV = block.getBlockUV();
+
             boolean[] culledFaces = chunkCull.cullFaces(x, y, z);
             if (chunkCull.isVisible(culledFaces)) {
                 if (y != 0 && !bodies.containsKey(new Vector3i(x, y, z)))
                     physicsBlocks.add(new Vector3i(x, y, z));
-                for (int face = 0; face < 6; face++) {
-                    if (culledFaces[face]) {
-                        for (int i = 0; i < 4; i++) {
-                            blockVertices.add(blockModel.get(face, i * 3) + x);
-                            blockVertices.add(blockModel.get(face, i * 3 + 1) + y);
-                            blockVertices.add(blockModel.get(face, i * 3 + 2) + z);
-                            blockLighting.add(blockLights[x][y][z] / 10.0f);
-                            float[] uv = blockUV.getUV(face, i);
-                            blockUvs.add(uv[0]);
-                            blockUvs.add(uv[1]);
-                        }
-                        int length = blockVertices.size() / 3;
-                        blockIndices.add(length - 4);
-                        blockIndices.add(length - 3);
-                        blockIndices.add(length - 2);
-                        blockIndices.add(length - 2);
-                        blockIndices.add(length - 3);
-                        blockIndices.add(length - 1);
+                for (int face = 0; face < blockModel.getNumFaces(); face++) {
+                    if (!block.isSpecialRender()) {
+                        if (culledFaces[face])
+                            createBlock(x, y, z, blockModel, blockUV, face);
+                    } else {
+                        createBlock(x, y, z, blockModel, blockUV, face);
                     }
                 }
             }
         }
+    }
+
+    private void createBlock(int x, int y, int z, BlockModel blockModel, BlockUV blockUV, int face) {
+        for (int i = 0; i < 4; i++) {
+            blockVertices.add(blockModel.get(face, i * 3) + x);
+            blockVertices.add(blockModel.get(face, i * 3 + 1) + y);
+            blockVertices.add(blockModel.get(face, i * 3 + 2) + z);
+            blockLighting.add(blockLights[x][y][z] / 10.0f);
+            float[] uv;
+            if (face >= 6)
+                uv = blockUV.getUV(0, i);
+            else
+                uv = blockUV.getUV(face, i);
+            blockUvs.add(uv[0]);
+            blockUvs.add(uv[1]);
+        }
+        int length = blockVertices.size() / 3;
+        blockIndices.add(length - 4);
+        blockIndices.add(length - 3);
+        blockIndices.add(length - 2);
+        blockIndices.add(length - 2);
+        blockIndices.add(length - 3);
+        blockIndices.add(length - 1);
     }
 
     public AABBf getBounds() {
