@@ -9,6 +9,15 @@ public class BlockModel {
     private float[][] vertices;
     @Getter
     private float[] rawVertices;
+    @Getter
+    private float[] normals = {
+            0, 0, -1,
+            0, 0, 1,
+            1, 0, 0,
+            -1, 0, 0,
+            0, 1, 0,
+            0, -1, 0,
+    };
 
     public BlockModel(float[] rawVertices) {
         this.rawVertices = rawVertices;
@@ -28,6 +37,7 @@ public class BlockModel {
                 {-0.5f, -0.5f, 0.5f, -0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f, -0.5f, -0.5f,}
         };
     }
+
 
     public int getNumFaces() {
         return vertices.length;

@@ -1,0 +1,6 @@
+displayName: Cobble block
+id: 1
+solid: true
+hardness: 1.0
+faces:
+  - [0, 1]

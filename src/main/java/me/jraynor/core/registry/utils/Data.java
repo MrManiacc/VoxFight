@@ -10,7 +10,7 @@ public class Data {
         public byte id;
         @Getter
         @Setter
-        public String displayName;
+        public String displayName = "undefined";
         @Getter
         @Setter
         public boolean solid;
@@ -30,7 +30,8 @@ public class Data {
         @Getter
         @Setter
         public float[] rawVertices = new float[0];
-
+        @Getter
+        public float[] light = new float[0];
 
         public int[] getRows() {
             int[] rows = new int[faces.length];

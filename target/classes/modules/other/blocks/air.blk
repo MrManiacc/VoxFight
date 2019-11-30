@@ -1,0 +1,6 @@
+displayName: Air block
+id: 0
+solid: false
+hardness: 1.0
+faces:
+  - [0,0]

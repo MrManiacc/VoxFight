@@ -16,16 +16,12 @@ public class PlayerCollider {
     private PlayerEntity playerEntity;
     private PhysicsWorld physicsWorld;
     private World world;
-    private Chunk activeChunk;
-    private Vector2i[] nextChunks;
-    private List<Chunk> nextChunksList = new ArrayList<>();
     private CollisionWorld.ClosestRayResultCallback rayCastCallback;
 
     public PlayerCollider(PlayerEntity playerEntity, PhysicsWorld physicsWorld, World world) {
         this.playerEntity = playerEntity;
         this.physicsWorld = physicsWorld;
         this.world = world;
-        this.nextChunks = playerEntity.getNextChunks();
         physicsWorld.addBody(playerEntity.getPhysicsBody());
     }
 
@@ -35,28 +31,6 @@ public class PlayerCollider {
         if (rayCastCallback.hasHit()) {
             float val = rayCastCallback.closestHitFraction * 256;
             playerEntity.setDistanceFromGround(val);
-        }
-        Vector2i curr = playerEntity.getChunk();
-        if (activeChunk != null)
-            activeChunk.removeBodies(physicsWorld);
-        activeChunk = world.getChunk(curr);
-        if (activeChunk != null)
-            activeChunk.addBodies(physicsWorld);
-
-        if (playerEntity.isChunkUpdate()) {
-            for (Chunk chunk : nextChunksList)
-                if (chunk != null)
-                    chunk.removeBodies(physicsWorld);
-            nextChunksList.clear();
-            nextChunks = playerEntity.getNextChunks();
-            for (Vector2i chunk : nextChunks) {
-                Chunk next = world.getChunk(chunk);
-                if (next != null) {
-                    next.addBodies(physicsWorld);
-                    nextChunksList.add(next);
-                }
-            }
-            playerEntity.setChunkUpdate(false);
         }
     }
 
@@ -78,6 +52,8 @@ public class PlayerCollider {
                     int face = getFace(normal);
                     playerEntity.setActiveBlock(new Vector4i(position.x, position.y, position.z, face));
                     playerEntity.setBlockSelected(true);
+                }else{
+                    playerEntity.setBlockSelected(false);
                 }
             }
         }

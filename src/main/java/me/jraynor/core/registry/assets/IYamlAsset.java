@@ -12,7 +12,6 @@ public interface IYamlAsset<T> {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         try {
             T user = (T) mapper.readValue(file, type);
-            System.out.println(ReflectionToStringBuilder.toString(user, ToStringStyle.MULTI_LINE_STYLE));
             return user;
         } catch (Exception e) {
             e.printStackTrace();

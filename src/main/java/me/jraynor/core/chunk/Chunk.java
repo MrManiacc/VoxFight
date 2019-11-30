@@ -1,60 +1,65 @@
 package me.jraynor.core.chunk;
 
-import com.bulletphysics.collision.dispatch.CollisionFlags;
+import lombok.Getter;
+import lombok.Setter;
 import me.jraynor.core.block.Blocks;
 import me.jraynor.core.block.blocks.Block;
 import me.jraynor.core.block.props.BlockModel;
 import me.jraynor.core.block.props.BlockUV;
 import me.jraynor.core.generation.IGenerator;
+import me.jraynor.core.gl.Texture;
 import me.jraynor.core.other.Model;
-import me.jraynor.core.physics.Body;
-import me.jraynor.core.physics.BoxBody;
-import me.jraynor.core.physics.PhysicsWorld;
-import org.joml.*;
+import org.joml.AABBf;
+import org.joml.Matrix4f;
+import org.joml.Vector2i;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The chunk is responsible for storing all of the ids of the loaded blocks in a
  * large 3d array. The total capacity for a chunk is 131,072‬ blocks or 32 * 256 * 32
  */
 public class Chunk {
-    byte[][][] blocks = new byte[16][256][16];
-    int[][][] blockLights = new int[16][256][16];
+    private byte[][][] blocks = new byte[16][256][16];
+    private int[][][] blockLights = new int[16][256][16];
+    @Getter
     private Matrix4f transform; //The 3d position needed to render the model
+    @Getter
     private Vector2i origin; //The 3d position needed to render the model
+    @Getter
     private Model model; //Contains the 3d data needed to render a model
     private boolean dirty = false;//If dirty, then the model needs to be deleted and rebuilt based on the blocks
     private List<Float> blockVertices = new ArrayList<>();
+    private List<Float> blockNormals = new ArrayList<>();
     private List<Float> blockUvs = new ArrayList<>();
     private List<Integer> blockIndices = new ArrayList<>();
-    private List<Float> blockLighting = new ArrayList<>();
-    private float[] lights;
+    private List<Integer> blockLighting = new ArrayList<>();
+    private int[] lights;
     private float[] vertices;
+    private float[] normals;
     private float[] textureCoordinates;
     private int[] indices;
     private ChunkCull chunkCull;
     private boolean ready = false;//Will be true when the chunk can be rendered
+    @Getter
     private AABBf aabBf;
+    @Getter
+    @Setter
     private boolean culled = false;
+    @Getter
     private boolean missingNeighbors = false;
-    private BoxBody boxBody;
-    private List<Vector3i> physicsBlocks = new ArrayList<>();
-    private Map<Vector3i, BoxBody> bodies = new HashMap<>();
-    private PhysicsWorld world;
+    @Getter
+    public static Texture atlas;
 
-    public Chunk(Vector2i transform, PhysicsWorld physicsWorld) {
-        this.world = physicsWorld;
+    public Chunk(Vector2i transform) {
         this.aabBf = new AABBf(new Vector3f(transform.x, 0, transform.y), new Vector3f(transform.x + 16, 256, transform.y + 16));
         this.origin = transform;
         this.transform = new Matrix4f().identity();
         this.transform.translate(transform.x, 0, transform.y);
         this.transform.scale(1, 1, 1);
         this.chunkCull = new ChunkCull(this);
-        this.boxBody = new BoxBody(new Vector3f(transform.x, 0, transform.y), new Vector3f(16, 256, 16));
     }
 
     /**
@@ -66,7 +71,7 @@ public class Chunk {
             for (int y = 0; y < 256; y++)
                 for (int z = 0; z < 16; z++) {
                     blocks[x][y][z] = generator.generatorBlock(origin, x, y, z);
-                    blockLights[x][y][z] = 3; //30% light to start
+                    setLight(x, y, z, 1);
                 }
     }
 
@@ -76,63 +81,36 @@ public class Chunk {
      */
     public void tick() {
         if (dirty) {
+            if (atlas == null)
+                atlas = Texture.loadTexture("src/main/resources/core/textures/atlas.png");
+
             blockIndices.clear();
             blockLighting.clear();
             blockUvs.clear();
             blockVertices.clear();
-            physicsBlocks.clear();
-//            model = Model.create();
-            for (int x = 0; x < 16; x++)
-                for (int y = 0; y < 256; y++)
-                    for (int z = 0; z < 16; z++)
+            blockNormals.clear();
+            for (int y = 0; y < 256; y++) {
+                for (int z = 0; z < 16; z++)
+                    for (int x = 0; x < 16; x++) {
                         processBlock(Blocks.getBlock(blocks[x][y][z]), x, y, z);
-            propagateBodies();
-            if (model == null)
-                model = Model.create();
-            model.bind(0, 1, 2);
+                    }
+            }
             populateArrays();
+            if (model == null) {
+                model = Model.create();
+            }
+            model.bind(0, 1, 2);
             model.createAttribute(0, vertices, 3);
-            model.createAttribute(1, textureCoordinates, 2);
-            model.createAttribute(2, lights, 1);
+            model.createAttribute(1, normals, 3);
+            model.createAttribute(2, textureCoordinates, 2);
+//            model.createIntAttribute(2, lights, 1);
             model.createIndexBuffer(indices);
             model.unbind(0, 1, 2);
             dirty = false;
             ready = true;
-            chunkCull.updateLighting();
         }
     }
 
-    /**
-     * This method will create all of the intractable box bodies withing the chunk
-     *
-     * @return
-     */
-    public void propagateBodies() {
-        for (int i = 0; i < physicsBlocks.size(); i++) {
-            Vector3i pos = physicsBlocks.get(i);
-            Block block = Blocks.getBlock(getBlock(pos.x, pos.y, pos.z));
-            Vector3f blockPosition = new Vector3f((origin.x) + pos.x - block.getHalfExtents().x, pos.y - block.getHalfExtents().y, (origin.y) + pos.z - block.getHalfExtents().z);
-            BoxBody body = new BoxBody(blockPosition, block.getHalfExtents());
-            body.setActivationState(Body.DISABLE_SIMULATION);
-            body.getBody().setUserPointer(new Vector4i(origin.x + pos.x, pos.y, origin.y + pos.z, -69));
-            body.getBody().setCollisionFlags(CollisionFlags.STATIC_OBJECT);
-            bodies.put(pos, body);
-
-        }
-        physicsBlocks.clear();
-    }
-
-    public void addBodies(PhysicsWorld physicsWorld) {
-        if (bodies != null)
-            for (BoxBody body : bodies.values())
-                physicsWorld.addBody(body);
-    }
-
-    public void removeBodies(PhysicsWorld physicsWorld) {
-        if (bodies != null)
-            for (BoxBody body : bodies.values())
-                physicsWorld.removeBody(body);
-    }
 
     /**
      * Used to convert the arraylists containg the data into native lists for opengl
@@ -147,16 +125,20 @@ public class Chunk {
         this.textureCoordinates = new float[blockUvs.size()];
         for (int i = 0; i < blockUvs.size(); i++)
             this.textureCoordinates[i] = blockUvs.get(i);
-        this.lights = new float[blockLighting.size()];
-        for (int i = 0; i < blockLighting.size(); i++)
+        this.lights = new int[blockLighting.size()];
+        for (int i = 0; i < blockLighting.size(); i++) {
             this.lights[i] = (blockLighting.get(i));
+        }
+
+        this.normals = new float[blockNormals.size()];
+        for (int i = 0; i < blockNormals.size(); i++) {
+            this.normals[i] = (blockNormals.get(i));
+        }
     }
 
 
     /**
-     * =
      * Converts the block into opengl 3d coordinates
-     * =
      *
      * @param block
      * @param x
@@ -170,8 +152,6 @@ public class Chunk {
 
             boolean[] culledFaces = chunkCull.cullFaces(x, y, z);
             if (chunkCull.isVisible(culledFaces)) {
-                if (y != 0 && !bodies.containsKey(new Vector3i(x, y, z)))
-                    physicsBlocks.add(new Vector3i(x, y, z));
                 for (int face = 0; face < blockModel.getNumFaces(); face++) {
                     if (!block.isSpecialRender()) {
                         if (culledFaces[face])
@@ -184,12 +164,16 @@ public class Chunk {
         }
     }
 
+
     private void createBlock(int x, int y, int z, BlockModel blockModel, BlockUV blockUV, int face) {
         for (int i = 0; i < 4; i++) {
             blockVertices.add(blockModel.get(face, i * 3) + x);
+            blockNormals.add(blockModel.getNormals()[face * 3]);
             blockVertices.add(blockModel.get(face, i * 3 + 1) + y);
+            blockNormals.add(blockModel.getNormals()[face * 3 + 1]);
             blockVertices.add(blockModel.get(face, i * 3 + 2) + z);
-            blockLighting.add(blockLights[x][y][z] / 10.0f);
+            blockNormals.add(blockModel.getNormals()[face * 3 + 2]);
+            blockLighting.add(blockLights[x][y][z]);
             float[] uv;
             if (face >= 6)
                 uv = blockUV.getUV(0, i);
@@ -207,13 +191,10 @@ public class Chunk {
         blockIndices.add(length - 1);
     }
 
-    public AABBf getBounds() {
-        return aabBf;
-    }
 
     public void setDirty() {
         this.dirty = true;
-        ready = false;
+        this.ready = false;
     }
 
     public boolean isReady() {
@@ -222,7 +203,6 @@ public class Chunk {
 
     public void addNeighbors(Chunk[] neighbors) {
         chunkCull.setNeighbors(neighbors);
-        chunkCull.updateLighting();
         dirty = true;
         ready = false;
         missingNeighbors = chunkCull.isMissingNeighbors();
@@ -235,14 +215,6 @@ public class Chunk {
             blocks[x][y][z] = blockID;
             ready = false;
             dirty = true;
-            if (blockID == 0) {
-                Vector3i key = new Vector3i(x, y, z);
-                physicsBlocks.remove(key);
-                if (bodies.containsKey(key)) {
-                    world.removeBody(bodies.get(key));
-                    bodies.remove(key);
-                }
-            }
         }
     }
 
@@ -250,36 +222,16 @@ public class Chunk {
         return blocks[x][y][z];
     }
 
-
-    public Model getModel() {
-        return model;
+    /**
+     * Set the light level, can only be from 0 - 16
+     */
+    public void setLight(int x, int y, int z, int level) {
+        blockLights[x][y][z] = level;
+        dirty = true;
+        ready = false;
     }
 
-    public boolean isDirty() {
-        return dirty;
-    }
-
-    public Matrix4f getTransform() {
-        return transform;
-    }
-
-    public Vector2i getOrigin() {
-        return origin;
-    }
-
-    public boolean isCulled() {
-        return culled;
-    }
-
-    public void setCulled(boolean culled) {
-        this.culled = culled;
-    }
-
-    public BoxBody getBox() {
-        return boxBody;
-    }
-
-    public boolean isMissingNeighbors() {
-        return missingNeighbors;
+    public int getLight(int x, int y, int z) {
+        return blockLights[x][y][z];
     }
 }

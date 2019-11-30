@@ -7,8 +7,6 @@ faces:
   - [1, 13]
 #not required they have a default value of a box (or should
 vertices:
-
-
   - [-0.90, 0.5, -0.90,
      -0.90, 0.5, 0.90,
      0.90, 0.5, -0.90,

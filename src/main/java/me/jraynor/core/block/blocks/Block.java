@@ -24,6 +24,16 @@ public abstract class Block {
     protected Vector3f halfExtents;
     @Getter
     protected boolean specialRender;
+    @Getter
+    protected String displayName;
+    @Getter
+    private boolean light = false;
+    @Getter
+    private Vector3f lightColor;
+    @Getter
+    private float lightLinear;
+    @Getter
+    private float quadratic;
 
     public Block(byte id) {
         this.id = id;
@@ -42,7 +52,11 @@ public abstract class Block {
 
     protected abstract BlockModel createModel();
 
-
-
+    protected void setLight(Vector3f color, float linear, float quadratic) {
+        this.light = true;
+        this.lightColor = color;
+        this.lightLinear = linear;
+        this.quadratic = quadratic;
+    }
 
 }

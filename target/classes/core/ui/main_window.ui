@@ -8,35 +8,17 @@
       "w": "rel(1)",
       "h": "rel(1)"
     },
-    "bar#window_bar": {
-      "color": "#0d0d0d",
-      "fam": "drag_bars",
-      "const#top_bar_const": {
-        "h": "pixel(35)"
-      },
-      "label#window_title": {
-        "fs": "25",
-        "color": "WHITE",
-        "tc": "BLACK",
-        "text": "testing",
-        "pad": "5",
-        "const#file_label_const": {
-          "x": "stick(LEFT)",
-          "y": "stick(TOP)"
-        }
-      },
-      "label#window_close": {
-        "textFamily": "regular",
-        "fontSize": "25",
-        "textColor": "WHITE",
-        "text": "X",
-        "color": "DARK_RED",
-        "pad": "10, 10, 5, 5",
-        "rad": "0",
-        "const#close_label_const": {
-          "x": "stick(RIGHT)",
-          "y": "stick(TOP)"
-        }
+    "label:#looking_at": {
+      "textFamily": "light",
+      "fontSize": "35",
+      "textColor": "WHITE",
+      "color": "#454545",
+      "text": "",
+      "pad": "10, 10, 5, 5",
+      "rad": "5",
+      "const#looking_at_const": {
+        "x": "center",
+        "y": "stick(TOP, pixel(10))"
       }
     },
     "block#main_view": {

@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11C.glEnable;
 
-class WorldRenderer {
+public class WorldRenderer {
     private Shader shader;
     private Texture texture;
 
@@ -29,7 +29,7 @@ class WorldRenderer {
     }
 
 
-    void start(Camera camera) {
+    public void start(Camera camera) {
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_STENCIL_TEST);
         GLUtils.enableOtherBlending();
@@ -42,7 +42,7 @@ class WorldRenderer {
         texture.bind();
     }
 
-    void render(Chunk chunk) {
+    public void render(Chunk chunk) {
         if (chunk.isReady() && !chunk.isCulled()) {
             shader.loadMat4("transMatrix", chunk.getTransform());
             chunk.getModel().bind(0, 1, 2);
@@ -51,7 +51,7 @@ class WorldRenderer {
         }
     }
 
-    void stop() {
+    public void stop() {
         shader.stop();
     }
 

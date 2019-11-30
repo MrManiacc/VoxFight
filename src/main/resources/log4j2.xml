@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%style{%d{(hh:mm:ss a}) [thread-%t]}{bold,red} %highlight{%-5level [%c{1}:%L]} - %msg%n"/>
+        </Console>
+
+        <!-- Rolling File Appender -->
+        <RollingFile name="RollingFile">
+            <FileName>log/log.log</FileName>
+            <FilePattern>logs/%d{MMM dd, yyyy hh-mm a}.log</FilePattern>
+            <PatternLayout header="${java:version} - ${java:os}">
+                <Pattern>%d{(MMMM dd, yyyy hh:mm:ss a}) [thread-%t] [%level] [%c{2}:%L] - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <root level="debug">
+            <appender-ref ref="Console" level="all"/>
+            <appender-ref ref="RollingFile" level="all"/>
+        </root>
+    </loggers>
+</configuration>

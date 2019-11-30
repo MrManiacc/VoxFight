@@ -2,6 +2,8 @@ package me.jraynor.core.entity;
 
 import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.collision.shapes.CylinderShape;
+import lombok.Getter;
+import lombok.Setter;
 import me.jraynor.bootstrap.Window;
 import me.jraynor.core.chunk.Chunk;
 import me.jraynor.core.gl.Camera;
@@ -26,13 +28,20 @@ public class PlayerEntity extends BaseEntity {
     private World world;
     private FrustumIntersection frustumIntersection;
     private Matrix4f prjViewMatrix;
+    @Setter
+    @Getter
     private boolean chunkUpdate = true;
     private Body physicsBody;
     private javax.vecmath.Vector3f tempVec = new javax.vecmath.Vector3f();
     private float distanceFromGround = 0;
+    @Getter
+    @Setter
     private Vector3i activeBlock = new Vector3i();
+    @Getter
     private Vector3i nextBlock = new Vector3i();// the position of the next block which is calculated based on face of the active block
     private boolean grabbed = true;
+    @Getter
+    @Setter
     private boolean blockSelected = false;
     private Vector3f linearAcc = new Vector3f();
     private Vector3f linearVel = new Vector3f();
@@ -59,13 +68,14 @@ public class PlayerEntity extends BaseEntity {
     }
 
     public void update(float deltaTime) {
+        super.update(deltaTime);
         move(deltaTime);
 
         camera.getViewMatrix().identity().rotateX(rotation.x).rotateY(rotation.y).translate(-position.x, -position.y, -position.z);
         updateChunk();
 
         if (Input.keyPressed(GLFW_KEY_E)) {
-            physicsBody.setPosition(position.x, position.y + 100, position.z);
+            physicsBody.setPosition(position.x, position.y + 30, position.z);
         }
 
         prjViewMatrix.set(camera.getProjectionMatrix());
@@ -92,14 +102,12 @@ public class PlayerEntity extends BaseEntity {
         if (Input.keyDown(GLFW_KEY_Q) || Input.mousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
             if (blockSelected) {
                 world.setBlock(activeBlock.x, activeBlock.y, activeBlock.z, (byte) 0);
-                blockSelected = false;
             }
         }
 
         if (Input.mousePressed(GLFW_MOUSE_BUTTON_RIGHT)) {
             if (blockSelected) {
-                world.setBlock(nextBlock.x, nextBlock.y, nextBlock.z, (byte) 15);
-                blockSelected = false;
+                world.setBlock(nextBlock.x, nextBlock.y, nextBlock.z, (byte) 9);
             }
         }
 
@@ -113,8 +121,8 @@ public class PlayerEntity extends BaseEntity {
      * @return
      */
     public boolean chunkInFrustum(Chunk chunk) {
-        Vector3f min = new Vector3f(chunk.getBounds().minX, chunk.getBounds().minY, chunk.getBounds().minZ);
-        Vector3f max = new Vector3f(chunk.getBounds().maxX, chunk.getBounds().maxY, chunk.getBounds().maxZ);
+        Vector3f min = new Vector3f(chunk.getAabBf().minX, chunk.getAabBf().minY, chunk.getAabBf().minZ);
+        Vector3f max = new Vector3f(chunk.getAabBf().maxX, chunk.getAabBf().maxY, chunk.getAabBf().maxZ);
         return frustumIntersection.testAab(min, max);
     }
 
@@ -168,9 +176,10 @@ public class PlayerEntity extends BaseEntity {
 
     private void updatePositionLinear(float delta) {
         linearAcc.zero();
-        float speed = 3.5f;
+        float speed = 15;
+//        float speed = 15f * delta;
         if (Input.keyDown(GLFW_KEY_LEFT_SHIFT))
-            speed = 5f;
+            speed = 20f * delta;
         if (Input.keyDown(GLFW_KEY_W))
             linearAcc.fma(speed, dir);
         if (Input.keyDown(GLFW_KEY_S))
@@ -277,15 +286,5 @@ public class PlayerEntity extends BaseEntity {
         }
     }
 
-    public Vector3i getActiveBlock() {
-        return activeBlock;
-    }
 
-    public void setNeedsUpdate(boolean b) {
-        this.chunkUpdate = b;
-    }
-
-    public void setBlockSelected(boolean blockSelected) {
-        this.blockSelected = blockSelected;
-    }
 }

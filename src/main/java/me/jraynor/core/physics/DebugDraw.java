@@ -18,47 +18,8 @@ import static org.lwjgl.opengl.GL11.glDrawArrays;
 public class DebugDraw extends IDebugDraw {
     private int debugMode = 0;
     private Vao vao;
-    private List<Line> lines = new ArrayList<>();
     private Shader shader;
     private PlayerEntity playerEntity;
-
-    private static class Line {
-        float fX, fY, fZ, tX, tY, tZ, r, g, b;
-
-        public Line(float fX, float fY, float fZ, float tX, float tY, float tZ, float r, float g, float b) {
-            this.fX = fX;
-            this.fY = fY;
-            this.fZ = fZ;
-            this.tX = tX;
-            this.tY = tY;
-            this.tZ = tZ;
-            this.r = r;
-            this.g = g;
-            this.b = b;
-        }
-
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Line line = (Line) o;
-            return Float.compare(line.fX, fX) == 0 &&
-                    Float.compare(line.fY, fY) == 0 &&
-                    Float.compare(line.fZ, fZ) == 0 &&
-                    Float.compare(line.tX, tX) == 0 &&
-                    Float.compare(line.tY, tY) == 0 &&
-                    Float.compare(line.tZ, tZ) == 0 &&
-                    Float.compare(line.r, r) == 0 &&
-                    Float.compare(line.g, g) == 0 &&
-                    Float.compare(line.b, b) == 0;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(fX, fY, fZ, tX, tY, tZ, r, g, b);
-        }
-    }
 
     public void init(PlayerEntity playerEntity) {
         this.playerEntity = playerEntity;
@@ -70,9 +31,11 @@ public class DebugDraw extends IDebugDraw {
 
             @Override
             protected void doUniformBinds() {
-                super.bindUniforms("viewMatrix", "proMatrix");
+                super.bindUniforms("viewMatrix", "projectionMatrix");
             }
         };
+        shader.setPath("src/main/resources/core/shaders/debug.glsl");
+        shader.loadShader();
     }
 
 
@@ -105,7 +68,7 @@ public class DebugDraw extends IDebugDraw {
         shader.start();
         GLUtils.enableDepthTesting(true);
         shader.loadMat4("viewMatrix", playerEntity.getCamera().getViewMatrix());
-        shader.loadMat4("proMatrix", playerEntity.getCamera().getProjectionMatrix());
+        shader.loadMat4("projectionMatrix", playerEntity.getCamera().getProjectionMatrix());
     }
 
     public void stopShader() {

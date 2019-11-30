@@ -3,16 +3,15 @@ package me.jraynor.core.chunk;
 import me.jraynor.core.block.Blocks;
 import me.jraynor.core.block.blocks.Block;
 
-public class ChunkCull {
+ class ChunkCull {
     private Chunk localChunk;
     private Chunk[] neighbors;
-    private boolean missingNeighbors = false;
 
-    public ChunkCull(Chunk localChunk) {
+     ChunkCull(Chunk localChunk) {
         this.localChunk = localChunk;
     }
 
-    public void setNeighbors(Chunk[] neighbors) {
+     void setNeighbors(Chunk[] neighbors) {
         this.neighbors = neighbors;
     }
 
@@ -24,7 +23,7 @@ public class ChunkCull {
      * @param z the z block position
      * @return the array of faces to draw for the given position
      */
-    public boolean[] cullFaces(int x, int y, int z) {
+     boolean[] cullFaces(int x, int y, int z) {
         boolean[] faces = new boolean[]{
                 false, false, false, false, false, false
         };
@@ -36,114 +35,19 @@ public class ChunkCull {
         return faces;
     }
 
-    public void setNeighborsDirty() {
+     void setNeighborsDirty() {
         for (Chunk chunk : neighbors)
             chunk.setDirty();
     }
 
-    public boolean isVisible(boolean[] array) {
+     boolean isVisible(boolean[] array) {
         for (boolean b : array) if (b) return true;
         return false;
     }
 
-    public void updateLighting() {
-        for (int x = 0; x < 16; x++)
-            for (int y = 0; y < 256; y++)
-                for (int z = 0; z < 16; z++) {
-                    if (localChunk.blocks[x][y][z] == 9) {
-                        localChunk.blockLights[x][y][z] = 10;
-                        updateNeighbors(x, y, z, 10, localChunk);
-                    }
-                }
-    }
-
-    private void updateNeighbors(int x, int y, int z, int level, Chunk chunk) {
-        if (level >= 3) {
-            if (z + 1 <= 15 && chunk.blockLights[x][y][z + 1] < level) {
-                chunk.blockLights[x][y][z + 1] = level;
-                updateNeighbors(x, y, z + 1, level - 1, chunk);
-            } else if (z + 1 == 16) {
-                //EAST Chunk
-                if (neighbors[2] != null)
-                    if (neighbors[2].blockLights[x][y][0] < level) {
-                        neighbors[2].blockLights[x][y][0] = level;
-                        updateNeighbors(x, y, 0, level - 1, neighbors[2]);
-                    } else
-                        missingNeighbors = true;
-            }
-            if (z - 1 >= 0 && chunk.blockLights[x][y][z - 1] < level) {
-                chunk.blockLights[x][y][z - 1] = level;
-                updateNeighbors(x, y, z - 1, level - 1, chunk);
-            } else if (z - 1 == -1) {
-                //SOUTH Chunk
-                if (neighbors[3] != null)
-                    if (neighbors[3].getOrigin().y < 0) {
-                        if (neighbors[3].blockLights[x][y][0] < level) {
-                            neighbors[3].blockLights[x][y][0] = level;
-                            updateNeighbors(x, y, 0, level - 1, neighbors[3]);
-                        }
-                    } else {
-                        if (neighbors[3].blockLights[15][y][z] < level) {
-                            neighbors[3].blockLights[15][y][z] = level;
-                            updateNeighbors(x, y, 15, level - 1, neighbors[3]);
-                        }
-                    }
-                else
-                    missingNeighbors = true;
-            }
-
-
-            if (x + 1 <= 15 && chunk.blockLights[x + 1][y][z] < level) {
-                chunk.blockLights[x + 1][y][z] = level;
-                updateNeighbors(x + 1, y, z, level - 1, chunk);
-            } else if (x + 1 == 16) {
-                //EAST Chunk
-                if (neighbors[1] != null) {
-                    if (neighbors[1].blockLights[0][y][z] < level) {
-                        neighbors[1].blockLights[0][y][z] = level;
-                        updateNeighbors(0, y, z, level - 1, neighbors[1]);
-                    }
-                } else
-                    missingNeighbors = true;
-            }
-            if (x - 1 >= 0 && chunk.blockLights[x - 1][y][z] < level) {
-                chunk.blockLights[x - 1][y][z] = level;
-                updateNeighbors(x - 1, y, z, level - 1, chunk);
-            } else if (x - 1 == -1) {
-                //WEST Chunk
-                if (neighbors[0] != null) {
-                    if (neighbors[0].getOrigin().x < 0) {
-                        if (neighbors[0].blockLights[0][y][z] < level) {
-                            neighbors[0].blockLights[0][y][z] = level;
-                            updateNeighbors(0, y, z, level - 1, neighbors[0]);
-                        }
-                    } else {
-                        if (neighbors[0].blockLights[15][y][z] < level) {
-                            neighbors[0].blockLights[15][y][z] = level;
-                            updateNeighbors(15, y, z, level - 1, neighbors[0]);
-                        }
-                    }
-
-                } else
-                    missingNeighbors = true;
-            }
-
-
-            if (y - 1 >= 0 && chunk.blockLights[x][y - 1][z] < level) {
-                chunk.blockLights[x][y - 1][z] = level;
-                updateNeighbors(x, y - 1, z, level - 1, chunk);
-
-            }
-
-            if (y + 1 <= 127 && chunk.blockLights[x][y + 1][z] < level) {
-                chunk.blockLights[x][y + 1][z] = level;
-                updateNeighbors(x, y + 1, z, level - 1, chunk);
-            }
-        }
-    }
-
-    public boolean isMissingNeighbors() {
-        return missingNeighbors;
+     boolean isMissingNeighbors() {
+         boolean missingNeighbors = false;
+         return missingNeighbors;
     }
 
     private void cullSides(boolean[] faces, int x, int y, int z) {
@@ -174,7 +78,6 @@ public class ChunkCull {
      * @param z     the block z
      */
     private void cullInChunk(boolean[] faces, int x, int y, int z) {
-        int airBlock = 0;
         if (x != 0)
             if (shouldCullBlock(localChunk, x - 1, y, z))
                 faces[3] = true;

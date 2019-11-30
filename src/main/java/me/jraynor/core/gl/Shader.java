@@ -2,7 +2,8 @@ package me.jraynor.core.gl;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.jraynor.bootstrap.Window;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -25,16 +26,18 @@ import java.util.Map;
 public abstract class Shader {
     private int programID, vertexID, fragmentID;
     @Setter
-    private String path = "src/main/resources/shaders/";
+    private String path = "src/main/resources/core/shaders/";
     private final Map<String, Integer> uniforms;
     private final FloatBuffer matrixBuffer;
     @Getter
     private boolean started = false;
+    private Logger logger = LogManager.getLogger();
 
     public Shader(String name) {
         this.path += name + ".glsl";
         uniforms = new HashMap<>();
         matrixBuffer = BufferUtils.createFloatBuffer(16);
+        loadShader();
     }
 
     /**
@@ -208,8 +211,7 @@ public abstract class Shader {
         GL20.glShaderSource(vertexID, sources[0]);
         GL20.glCompileShader(vertexID);
         if (GL20.glGetShaderi(vertexID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
-            //System.out.println(GL20.glGetShaderInfoLog(vertexID, 500));
-            System.err.println("Failed to compile vertex shader");
+            logger.error("Failed to compiler vertex shader, {}", GL20.glGetShaderInfoLog(vertexID, 500));
             System.exit(-1);
         }
 
@@ -217,8 +219,8 @@ public abstract class Shader {
         GL20.glShaderSource(fragmentID, sources[1]);
         GL20.glCompileShader(fragmentID);
         if (GL20.glGetShaderi(fragmentID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
-            //System.out.println(GL20.glGetShaderInfoLog(fragmentID, 500));
-            System.err.println("Failed to compile fragment shader");
+            logger.error("Failed to compiler fragment shader, {}", GL20.glGetShaderInfoLog(vertexID, 500));
+
             System.exit(-1);
         }
 

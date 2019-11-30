@@ -85,7 +85,6 @@ public class Parser {
 
     private static void parseAsset(List<Asset> assets, Pack pack, Path path) throws IOException {
         File file = path.toFile();
-        System.out.println(pack + ", " + path.toString());
         Asset asset = null;
         if (pack == FONT)
             asset = new FontAsset(file, pack.getName(),

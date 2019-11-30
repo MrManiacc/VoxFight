@@ -1,15 +1,14 @@
 package me.jraynor.core.registry.assets;
 
-import lombok.Getter;
 import me.jraynor.core.block.Blocks;
 import me.jraynor.core.block.blocks.Block;
 import me.jraynor.core.block.props.BlockModel;
 import me.jraynor.core.block.props.BlockUV;
 import org.joml.Vector3f;
 
-import static me.jraynor.core.registry.utils.Data.*;
-
 import java.io.File;
+
+import static me.jraynor.core.registry.utils.Data.BlockData;
 
 public class BlockAsset extends Asset implements IYamlAsset<BlockData> {
     private BlockData blockData;
@@ -32,7 +31,9 @@ public class BlockAsset extends Asset implements IYamlAsset<BlockData> {
                 hardness = blockData.getHardness();
                 halfExtents = new Vector3f(blockData.getBoundingSize()[0], blockData.getBoundingSize()[1], blockData.getBoundingSize()[2]);
                 specialRender = blockData.vertices.length != 0;
-
+                if (blockData.light.length != 0)
+                    setLight(new Vector3f(blockData.light[0], blockData.light[1], blockData.light[2]), blockData.light[3], blockData.light[4]);
+                this.displayName = blockData.displayName;
                 if (specialRender) {
                     float minX = Float.MAX_VALUE, minY = Float.MAX_VALUE, minZ = Float.MAX_VALUE;
                     float maxX = Float.MIN_VALUE, maxY = Float.MIN_VALUE, maxZ = Float.MIN_VALUE;

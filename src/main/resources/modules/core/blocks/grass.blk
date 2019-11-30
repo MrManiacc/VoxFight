@@ -1,0 +1,11 @@
+displayName: Grass block
+id: 8
+solid: true
+hardness: 1.0
+faces:
+  - [3,0]
+  - [3,0]
+  - [3,0]
+  - [3,0]
+  - [0,0]
+  - [2,0]

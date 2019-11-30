@@ -141,7 +141,7 @@ public class Texture {
     /**
      * Gets the texture width.
      *
-     * @return Texture width
+     * @return TextureAsset width
      */
     public int getWidth() {
         return width;
@@ -161,7 +161,7 @@ public class Texture {
     /**
      * Gets the texture height.
      *
-     * @return Texture height
+     * @return TextureAsset height
      */
     public int getHeight() {
         return height;
@@ -185,7 +185,7 @@ public class Texture {
      * @param width  Width of the texture
      * @param height Height of the texture
      * @param data   Picture Data in RGBA format
-     * @return Texture from the specified data
+     * @return TextureAsset from the specified data
      */
     public static Texture createTextureHDR(int width, int height, FloatBuffer data, String path) {
         Texture texture = new Texture();
@@ -210,7 +210,7 @@ public class Texture {
      * @param width  Width of the texture
      * @param height Height of the texture
      * @param data   Picture Data in RGBA format
-     * @return Texture from the specified data
+     * @return TextureAsset from the specified data
      */
     public static Texture createTexture(int width, int height, ByteBuffer data, String path) {
         Texture texture = new Texture();
@@ -233,7 +233,7 @@ public class Texture {
      * Load texture from file.
      *
      * @param path File path of the texture
-     * @return Texture from specified file
+     * @return TextureAsset from specified file
      */
     public static Texture loadTextureHDR(String path) {
         FloatBuffer image;
@@ -264,7 +264,7 @@ public class Texture {
      * Load texture from file.
      *
      * @param path File path of the texture
-     * @return Texture from specified file
+     * @return TextureAsset from specified file
      */
     public static Texture loadTexture(String path) {
         ByteBuffer image;

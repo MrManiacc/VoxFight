@@ -1,0 +1,7 @@
+displayName: Dirt block
+id: 12
+solid: true
+#not yet implemented, everything is instant break
+hardness: 1.0
+faces:
+  - [1,0]
