@@ -4,6 +4,7 @@ import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.collision.shapes.CylinderShape;
 import lombok.Getter;
 import lombok.Setter;
+import me.jraynor.Voxel;
 import me.jraynor.bootstrap.Window;
 import me.jraynor.core.chunk.Chunk;
 import me.jraynor.core.gl.Camera;
@@ -54,9 +55,9 @@ public class PlayerEntity extends BaseEntity {
 
     public Quaternionf rotation = new Quaternionf();
 
-    public PlayerEntity(Window window, Vector3f position, int reach) {
+    public PlayerEntity(Vector3f position) {
         super(position);
-        this.camera = new Camera(window, 80, 0.1f, 10000f);
+        this.camera = new Camera(80, 0.1f, 10000f);
         this.camera.setPerspective();
         this.frustumIntersection = new FrustumIntersection();
         this.prjViewMatrix = new Matrix4f().identity();
@@ -158,8 +159,8 @@ public class PlayerEntity extends BaseEntity {
      * Updates player rotation
      */
     private void updateRotation() {
-        rotation.x = (float) (Input.mousePosition.y / Window.INSTANCE.getWidth()) * sensitivity;
-        rotation.y = (float) (Input.mousePosition.x / Window.INSTANCE.getHeight()) * sensitivity;
+        rotation.x = (float) (Input.mousePosition.y / Voxel.WINDOW.getWidth()) * sensitivity;
+        rotation.y = (float) (Input.mousePosition.x / Voxel.WINDOW.getHeight()) * sensitivity;
     }
 
 

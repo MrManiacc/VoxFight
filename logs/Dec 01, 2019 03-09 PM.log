@@ -1,0 +1,7 @@
+Java version 13.0.1 - Mac OS X 10.14.6, architecture: x86_64-64(December 01, 2019 03:09:07 PM) [thread-main] [INFO] [core.VoxelEngine:76] - Java: 13.0.1 in /Library/Java/JavaVirtualMachines/jdk-13.0.1.jdk/Contents/Home
+(December 01, 2019 03:09:07 PM) [thread-main] [INFO] [core.VoxelEngine:77] - Java VM: OpenJDK 64-Bit Server VM, version: 13.0.1+9
+(December 01, 2019 03:09:07 PM) [thread-main] [INFO] [core.VoxelEngine:78] - OS: Mac OS X, arch: x86_64, version: 10.14.6
+(December 01, 2019 03:09:07 PM) [thread-main] [INFO] [core.VoxelEngine:79] - Max. Memory: 4294967296 MiB
+(December 01, 2019 03:09:07 PM) [thread-main] [INFO] [core.VoxelEngine:80] - Processors: 12
+(December 01, 2019 03:09:07 PM) [thread-main] [DEBUG] [core.VoxelEngine:68] - Initialization completed in 0.01sec.
+(December 01, 2019 03:09:08 PM) [thread-main] [INFO] [states.StateInit:94] - Mapping asset paths...

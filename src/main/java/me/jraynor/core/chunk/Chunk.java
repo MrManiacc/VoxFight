@@ -2,10 +2,10 @@ package me.jraynor.core.chunk;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.jraynor.core.block.Blocks;
-import me.jraynor.core.block.blocks.Block;
-import me.jraynor.core.block.props.BlockModel;
-import me.jraynor.core.block.props.BlockUV;
+import me.jraynor.engine.block.Blocks;
+import me.jraynor.engine.block.blocks.Block;
+import me.jraynor.engine.block.props.BlockModel;
+import me.jraynor.engine.block.props.BlockUV;
 import me.jraynor.core.generation.IGenerator;
 import me.jraynor.core.gl.Texture;
 import me.jraynor.core.other.Model;
@@ -51,7 +51,7 @@ public class Chunk {
     @Getter
     private boolean missingNeighbors = false;
     @Getter
-    public static Texture atlas;
+    public static Texture atlas = Texture.loadTexture("src/main/resources/core/textures/atlas.png");;
 
     public Chunk(Vector2i transform) {
         this.aabBf = new AABBf(new Vector3f(transform.x, 0, transform.y), new Vector3f(transform.x + 16, 256, transform.y + 16));
@@ -81,9 +81,7 @@ public class Chunk {
      */
     public void tick() {
         if (dirty) {
-            if (atlas == null)
-                atlas = Texture.loadTexture("src/main/resources/core/textures/atlas.png");
-
+            System.out.println("chunking");
             blockIndices.clear();
             blockLighting.clear();
             blockUvs.clear();

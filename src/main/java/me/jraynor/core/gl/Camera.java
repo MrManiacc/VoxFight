@@ -2,7 +2,8 @@ package me.jraynor.core.gl;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.jraynor.bootstrap.Window;
+import me.jraynor.engine.registry.CoreRegistry;
+import me.jraynor.engine.window.Window;
 import org.joml.Matrix4f;
 
 public class Camera {
@@ -14,8 +15,8 @@ public class Camera {
     private boolean perspective = true;
     private Window window;
 
-    public Camera(Window window, float fov, float near, float far) {
-        this.window = window;
+    public Camera(float fov, float near, float far) {
+        this.window = CoreRegistry.get(Window.class);
         this.fov = fov;
         this.near = near;
         this.far = far;

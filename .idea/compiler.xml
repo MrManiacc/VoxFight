@@ -7,8 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="VoxFight" />
         <module name="VoxelFight" />
+        <module name="VoxFight" />
+        <module name="Voxy" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="13" />

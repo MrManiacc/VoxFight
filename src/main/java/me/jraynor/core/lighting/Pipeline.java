@@ -1,6 +1,5 @@
 package me.jraynor.core.lighting;
 
-import me.jraynor.bootstrap.Window;
 import me.jraynor.core.chunk.Chunk;
 import me.jraynor.core.gl.Camera;
 import me.jraynor.core.gl.Shader;
@@ -8,29 +7,24 @@ import me.jraynor.core.gl.ShaderBind;
 import me.jraynor.core.gl.Vao;
 import me.jraynor.core.world.World;
 import me.jraynor.core.world.WorldRenderer;
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
+import me.jraynor.engine.window.Window;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public class Pipeline {
-    private final Window window;
     private final GBuffer buffer;
     private final World world;
     private final WorldRenderer worldRenderer;
     private final Camera camera;
     private Shader geometryPassShader, lightingPassShader, debugShader, sphereShader;
     private Vao quadVao, cubeVao;
-    private Matrix4f sphereMatrix;
 
     public Pipeline(Window window, World world) {
-        this.window = window;
         this.world = world;
         this.buffer = new GBuffer(window.getWidth(), window.getHeight());
         this.worldRenderer = world.getWorldRenderer();
         this.camera = world.getPlayerEntity().getCamera();
-        this.sphereMatrix = new Matrix4f().identity();
     }
 
     public void init() {

@@ -1,17 +1,16 @@
 package me.jraynor.core.chunk;
 
-import me.jraynor.core.block.Blocks;
-import me.jraynor.core.block.blocks.Block;
+import me.jraynor.engine.block.Blocks;
 
- class ChunkCull {
+class ChunkCull {
     private Chunk localChunk;
     private Chunk[] neighbors;
 
-     ChunkCull(Chunk localChunk) {
+    ChunkCull(Chunk localChunk) {
         this.localChunk = localChunk;
     }
 
-     void setNeighbors(Chunk[] neighbors) {
+    void setNeighbors(Chunk[] neighbors) {
         this.neighbors = neighbors;
     }
 
@@ -23,7 +22,7 @@ import me.jraynor.core.block.blocks.Block;
      * @param z the z block position
      * @return the array of faces to draw for the given position
      */
-     boolean[] cullFaces(int x, int y, int z) {
+    boolean[] cullFaces(int x, int y, int z) {
         boolean[] faces = new boolean[]{
                 false, false, false, false, false, false
         };
@@ -35,19 +34,19 @@ import me.jraynor.core.block.blocks.Block;
         return faces;
     }
 
-     void setNeighborsDirty() {
+    void setNeighborsDirty() {
         for (Chunk chunk : neighbors)
             chunk.setDirty();
     }
 
-     boolean isVisible(boolean[] array) {
+    boolean isVisible(boolean[] array) {
         for (boolean b : array) if (b) return true;
         return false;
     }
 
-     boolean isMissingNeighbors() {
-         boolean missingNeighbors = false;
-         return missingNeighbors;
+    boolean isMissingNeighbors() {
+        boolean missingNeighbors = false;
+        return missingNeighbors;
     }
 
     private void cullSides(boolean[] faces, int x, int y, int z) {
@@ -66,7 +65,8 @@ import me.jraynor.core.block.blocks.Block;
     }
 
     private boolean shouldCullBlock(Chunk chunk, int x, int y, int z) {
-        return Blocks.getBlock(chunk.getBlock(x, y, z)).isSpecialRender() || chunk.getBlock(x, y, z) == 0;
+        return false;
+//        return Blocks.getBlock(chunk.getBlock(x, y, z)).isSpecialRender() || chunk.getBlock(x, y, z) == 0;
     }
 
     /**

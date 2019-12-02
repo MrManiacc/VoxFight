@@ -1,0 +1,79 @@
+Java version 13.0.1 - Mac OS X 10.14.6, architecture: x86_64-64(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [core.VoxelEngine:76] - Java: 13.0.1 in /Library/Java/JavaVirtualMachines/jdk-13.0.1.jdk/Contents/Home
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [core.VoxelEngine:77] - Java VM: OpenJDK 64-Bit Server VM, version: 13.0.1+9
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [core.VoxelEngine:78] - OS: Mac OS X, arch: x86_64, version: 10.14.6
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [core.VoxelEngine:79] - Max. Memory: 4294967296 MiB
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [core.VoxelEngine:80] - Processors: 12
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [core.VoxelEngine:68] - Initialization completed in 0.01sec.
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [states.PreInitializationState:123] - Mapping asset paths...
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:air] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/air.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:bed] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/bed.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:cobble] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/cobble.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:desk] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/desk.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:dirt] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/dirt.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:flower] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/flower.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:glowstone] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/glowstone.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:grass] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/grass.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:table] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/table.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:torch] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/torch.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:air] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/blocks/air.blk'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:bold] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/fonts/bold.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:extrabold] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/fonts/extrabold.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:italic] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/fonts/italic.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:light] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/fonts/light.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:regular] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/fonts/regular.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:semibold] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/fonts/semibold.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:bold] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/fonts/bold.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:extrabold] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/fonts/extrabold.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:italic] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/fonts/italic.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:light] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/fonts/light.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:regular] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/fonts/regular.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:semibold] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/fonts/semibold.ttf'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:atlas] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/textures/atlas.png'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [core:crosshair] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/core/textures/crosshair.png'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:atlas] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/textures/atlas.png'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [asset.AssetMapper:67] - [other:crosshair] found at path 'file:/Users/jamesraynor/Documents/Voxy/target/classes/modules/other/textures/crosshair.png'
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [asset.AssetMapper:53] - 2 total modules found: [core, other]
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [states.PreInitializationState:123] - Creating modules...
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:bed, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/bed.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:torch, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/torch.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:table, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/table.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [other:air, /Users/jamesraynor/Documents/Voxy/target/classes/modules/other/blocks/air.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:desk, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/desk.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:dirt, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/dirt.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:air, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/air.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:flower, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/flower.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:grass, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/grass.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:glowstone, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/glowstone.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:cobble, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/cobble.blk] new BlockAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:72] - [other:crosshair, /Users/jamesraynor/Documents/Voxy/target/classes/modules/other/textures/crosshair.png] new TextureAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:72] - [other:atlas, /Users/jamesraynor/Documents/Voxy/target/classes/modules/other/textures/atlas.png] new TextureAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:72] - [core:crosshair, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/textures/crosshair.png] new TextureAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:72] - [core:atlas, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/textures/atlas.png] new TextureAsset added to module 'core'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:bed, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/bed.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:torch, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/torch.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:table, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/table.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [other:air, /Users/jamesraynor/Documents/Voxy/target/classes/modules/other/blocks/air.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:desk, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/desk.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:dirt, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/dirt.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:air, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/air.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:flower, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/flower.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:grass, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/grass.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:glowstone, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/glowstone.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:68] - [core:cobble, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/blocks/cobble.blk] new BlockAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:72] - [other:crosshair, /Users/jamesraynor/Documents/Voxy/target/classes/modules/other/textures/crosshair.png] new TextureAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:72] - [other:atlas, /Users/jamesraynor/Documents/Voxy/target/classes/modules/other/textures/atlas.png] new TextureAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:72] - [core:crosshair, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/textures/crosshair.png] new TextureAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.LoadModulesProcess:72] - [core:atlas, /Users/jamesraynor/Documents/Voxy/target/classes/modules/core/textures/atlas.png] new TextureAsset added to module 'other'
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [states.PreInitializationState:123] - Registering Blocks...
+(December 01, 2019 04:25:53 PM) [thread-main] [DEBUG] [registration.RegisterBlocksProcess:42] - found 22 total BlockAsset's in 2 total modules
+(December 01, 2019 04:25:53 PM) [thread-main] [INFO] [states.PreInitializationState:123] - Creating game objects...
+(December 01, 2019 04:25:54 PM) [thread-main] [DEBUG] [states.PreInitializationState:34] - Registered the PlayerEntity to the Core Registry
+(December 01, 2019 04:25:54 PM) [thread-main] [DEBUG] [states.PreInitializationState:37] - Registered the World to the Core Registry
+(December 01, 2019 04:25:54 PM) [thread-main] [DEBUG] [states.PreInitializationState:40] - Registered the PhysicsWorld to the Core Registry
+(December 01, 2019 04:25:54 PM) [thread-main] [DEBUG] [states.PreInitializationState:46] - Registered the Render Pipeline to the Core Registry
+(December 01, 2019 04:25:54 PM) [thread-main] [INFO] [states.PostInitializationState:123] - Creating window....
+(December 01, 2019 04:25:54 PM) [thread-main] [INFO] [internal.WindowGlfw:90] - Voxel window created width: 1080, height: 720, fullscreen: false, vSync: false
+(December 01, 2019 04:25:54 PM) [thread-main] [INFO] [states.PostInitializationState:123] - Initializing game objects...
+(December 01, 2019 04:25:54 PM) [thread-main] [DEBUG] [states.PostInitializationState:32] - Initialized the pipeline
+(December 01, 2019 04:25:59 PM) [thread-main] [DEBUG] [states.PostInitializationState:34] - Initialized the world
+(December 01, 2019 04:25:59 PM) [thread-main] [DEBUG] [states.PostInitializationState:36] - Initialized the physics world

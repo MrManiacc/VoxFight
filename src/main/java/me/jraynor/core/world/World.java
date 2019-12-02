@@ -1,8 +1,8 @@
 package me.jraynor.core.world;
 
 import lombok.Getter;
-import me.jraynor.core.block.Blocks;
-import me.jraynor.core.block.blocks.Block;
+import me.jraynor.engine.block.Blocks;
+import me.jraynor.engine.block.blocks.Block;
 import me.jraynor.core.chunk.Chunk;
 import me.jraynor.core.entity.PlayerEntity;
 import me.jraynor.core.generation.GenericGenerator;

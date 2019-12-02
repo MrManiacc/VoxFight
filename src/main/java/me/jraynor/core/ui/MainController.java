@@ -1,8 +1,8 @@
 package me.jraynor.core.ui;
 
 import me.jraynor.bootstrap.Window;
-import me.jraynor.core.block.Blocks;
-import me.jraynor.core.block.blocks.Block;
+import me.jraynor.engine.block.Blocks;
+import me.jraynor.engine.block.blocks.Block;
 import me.jraynor.core.world.World;
 import me.jraynor.uison.controller.Component;
 import me.jraynor.uison.controller.DefaultController;

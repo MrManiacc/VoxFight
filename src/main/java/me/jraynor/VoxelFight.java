@@ -2,12 +2,12 @@ package me.jraynor;
 
 import me.jraynor.bootstrap.IEngine;
 import me.jraynor.bootstrap.Window;
-import me.jraynor.core.block.Blocks;
+import me.jraynor.engine.block.Blocks;
 import me.jraynor.core.entity.PlayerEntity;
 import me.jraynor.core.lighting.Pipeline;
 import me.jraynor.core.physics.PhysicsWorld;
 import me.jraynor.core.physics.PlayerCollider;
-import me.jraynor.core.registry.utils.Parser;
+import me.jraynor.engine.registry.utils.Parser;
 import me.jraynor.core.world.World;
 import me.jraynor.core.ui.MainController;
 import me.jraynor.uison.UIMaster;
@@ -26,12 +26,12 @@ public class VoxelFight extends IEngine {
         super(40D);
         this.pack = pack;
         this.window = new Window(width, height, false, false, false, false, title);
-        PlayerEntity playerEntity = new PlayerEntity(window, new Vector3f(0, 10, 0), 4);
+        PlayerEntity playerEntity = new PlayerEntity(new Vector3f(0, 10, 0));
         this.world = new World(playerEntity, "");
         this.physicsWorld = new PhysicsWorld(10f, playerEntity, world);
         this.world.setPhysicsWorld(physicsWorld);
         this.playerCollider = new PlayerCollider(world.getPlayerEntity(), physicsWorld, world);
-        this.pipeline = new Pipeline(window, world);
+        this.pipeline = new Pipeline(null, world);
         this.window.start(this);
     }
 
@@ -48,7 +48,7 @@ public class VoxelFight extends IEngine {
     }
 
     public void renderUI(float v) {
-//        UIMaster.update(window);
+        //UIMaster.update(window);
     }
 
     @Override
@@ -77,11 +77,13 @@ public class VoxelFight extends IEngine {
                 break;
             case 2:
                 new VoxelFight(args[0], Integer.parseInt(args[1]), Integer.parseInt(args[1]), "VoxelFight");
+                break;
             case 3:
                 new VoxelFight("core", Integer.parseInt(args[1]), Integer.parseInt(args[2]), "VoxelFight");
                 break;
             default:
                 new VoxelFight("core", 1080, 720, "VoxelFight");
+                break;
         }
     }
 }
